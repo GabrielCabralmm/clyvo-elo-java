@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Equipe — CLYVO Elo</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<div class="container">
+    <h1>Equipe da clínica</h1>
+    <p class="subtitulo">Doutores e administradores com acesso ao painel</p>
+
+    <a th:href="@{/funcionarios/novo}" class="botao" style="margin-bottom:20px; display:inline-block;">+ Novo funcionário</a>
+
+    <div class="cartao" style="padding:0;">
+        <table>
+            <thead>
+            <tr><th>Nome</th><th>Email</th><th>Perfil</th><th></th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="f : ${funcionarios}">
+                <td th:text="${f.nome}"></td>
+                <td th:text="${f.email}"></td>
+                <td><span class="badge" th:text="${f.perfil}"></span></td>
+                <td>
+                    <form th:action="@{/funcionarios/{id}/excluir(id=${f.id})}" method="post" style="display:inline;" onsubmit="return confirm('Excluir este funcionário?');">
+                        <button type="submit" class="botao-perigo">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="vazio" th:if="${#lists.isEmpty(funcionarios)}">Nenhum funcionário cadastrado.</p>
+    </div>
+</div>
+</body>
+</html>
