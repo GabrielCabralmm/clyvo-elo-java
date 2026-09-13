@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Eventos pendentes — CLYVO Elo</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<div class="container">
+    <h1>Eventos clínicos pendentes</h1>
+    <p class="subtitulo">Atenda cada evento para registrar o cuidado realizado</p>
+
+    <div class="cartao" style="padding:0;">
+        <table>
+            <thead>
+            <tr><th>Pet</th><th>Tipo</th><th>Descrição</th><th>Data</th><th></th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="evento : ${eventos}">
+                <td th:text="${evento.pet.nome}"></td>
+                <td th:text="${evento.tipoEvento}"></td>
+                <td th:text="${evento.descricao}"></td>
+                <td th:text="${evento.dataEvento}"></td>
+                <td>
+                    <a th:href="@{/eventos/{id}/atender(id=${evento.id})}" class="botao-secundario" style="padding:5px 12px; font-size:12px;">Atender</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="vazio" th:if="${#lists.isEmpty(eventos)}">Nenhum evento pendente. Tudo em dia!</p>
+    </div>
+</div>
+</body>
+</html>

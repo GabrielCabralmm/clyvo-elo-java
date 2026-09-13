@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Atender evento — CLYVO Elo</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<div class="container">
+    <h1>Atender evento clínico</h1>
+    <p class="subtitulo">Registre o que foi feito para concluir este evento</p>
+
+    <div class="cartao" style="max-width:520px;">
+        <p><strong>Pet:</strong> <span th:text="${evento.pet.nome}"></span> (<span th:text="${evento.pet.especie}"></span>)</p>
+        <p><strong>Tipo:</strong> <span th:text="${evento.tipoEvento}"></span></p>
+        <p><strong>Descrição original:</strong> <span th:text="${evento.descricao}"></span></p>
+        <p><strong>Tutor:</strong> <span th:text="${evento.pet.nomeTutor}"></span></p>
+
+        <form th:action="@{/eventos/{id}/atender(id=${evento.id})}" method="post" style="margin-top:20px;">
+            <div class="form-grupo">
+                <label>O que foi realizado no atendimento</label>
+                <textarea name="observacaoAtendimento" required placeholder="Ex: vacina aplicada sem reações, retorno em 12 meses"></textarea>
+            </div>
+            <button type="submit" class="botao">Concluir atendimento</button>
+            <a th:href="@{/eventos}" class="botao-secundario">Cancelar</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>
