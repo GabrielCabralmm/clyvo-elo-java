@@ -1,0 +1,12 @@
+CLYVO Elo — Painel da Clínica
+Challenge FIAP 2026 (CLYVO VET)
+2º Semestre — Sprint 3
+Disciplina: Java Advanced
+
+Integrantes:
+Gabriel Cabral Mendes Mariano - RM563230 - Turma 2TDSPO
+João Victor Santana dos Santos - RM566063 - Turma 2TDSPX
+
+Link do GitHub: https://github.com/GabrielCabralmm/clyvo-elo-java
+Link do Deploy (Render): [a preencher]
+Link do vídeo (YouTube): [a preencher]
