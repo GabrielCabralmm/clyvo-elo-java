@@ -1,0 +1,18 @@
+<div th:fragment="nav" class="nav">
+    <a href="/" class="nav-marca">CLYVO Elo — Painel</a>
+    <div class="nav-links">
+        <a href="/">Início</a>
+        <a href="/pets" sec:authorize="hasRole('ADMIN')">Pets</a>
+        <a href="/funcionarios" sec:authorize="hasRole('ADMIN')">Funcionários</a>
+        <a href="/eventos" sec:authorize="hasRole('DOUTOR')">Eventos pendentes</a>
+        <a href="/alertas" sec:authorize="hasRole('DOUTOR')">Alertas abertos</a>
+    </div>
+    <div class="nav-usuario">
+        <span sec:authentication="name">usuario</span>
+        <span class="badge" sec:authorize="hasRole('ADMIN')">Administrador</span>
+        <span class="badge" sec:authorize="hasRole('DOUTOR')">Doutor</span>
+        <form th:action="@{/logout}" method="post" style="display:inline; margin:0;">
+            <button type="submit" class="botao-sair">Sair</button>
+        </form>
+    </div>
+</div>

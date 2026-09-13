@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel — CLYVO Elo</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<div class="container">
+    <h1>Olá, <span th:text="${nomeUsuario}">usuário</span></h1>
+    <p class="subtitulo">Visão geral da clínica agora</p>
+
+    <div class="grade-resumo">
+        <div class="cartao">
+            <div class="resumo-numero" th:text="${totalPets}">0</div>
+            <div class="resumo-label">Pets cadastrados</div>
+        </div>
+        <div class="cartao">
+            <div class="resumo-numero" th:text="${eventosPendentes}">0</div>
+            <div class="resumo-label">Eventos clínicos pendentes</div>
+        </div>
+        <div class="cartao">
+            <div class="resumo-numero" th:text="${alertasAbertos}">0</div>
+            <div class="resumo-label">Alertas em aberto</div>
+        </div>
+    </div>
+
+    <div th:if="${ehAdmin}">
+        <p>Como <strong>Administrador</strong>, você gerencia os pets cadastrados e a equipe da clínica.</p>
+        <a th:href="@{/pets}" class="botao-secundario">Ver pets</a>
+        <a th:href="@{/funcionarios}" class="botao-secundario">Ver equipe</a>
+    </div>
+
+    <div th:if="${ehDoutor}">
+        <p>Como <strong>Doutor</strong>, você atende eventos clínicos pendentes e resolve alertas dos pacientes.</p>
+        <a th:href="@{/eventos}" class="botao-secundario">Ver eventos pendentes</a>
+        <a th:href="@{/alertas}" class="botao-secundario">Ver alertas abertos</a>
+    </div>
+</div>
+</body>
+</html>
