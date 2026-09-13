@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resolver alerta — CLYVO Elo</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<div class="container">
+    <h1>Resolver alerta</h1>
+    <p class="subtitulo">Registre como o alerta foi tratado</p>
+
+    <div class="cartao" style="max-width:520px;">
+        <p><strong>Pet:</strong> <span th:text="${alerta.pet.nome}"></span></p>
+        <p><strong>Tutor:</strong> <span th:text="${alerta.pet.nomeTutor}"></span></p>
+        <p><strong>Origem:</strong> <span th:text="${alerta.origem}"></span></p>
+        <p><strong>Prioridade:</strong> <span th:text="${alerta.prioridade}"></span></p>
+        <p><strong>Descrição:</strong> <span th:text="${alerta.descricao}"></span></p>
+
+        <form th:action="@{/alertas/{id}/resolver(id=${alerta.id})}" method="post" style="margin-top:20px;">
+            <div class="form-grupo">
+                <label>Nota de resolução</label>
+                <textarea name="notaResolucao" required placeholder="Ex: contato feito com o tutor, orientações passadas"></textarea>
+            </div>
+            <button type="submit" class="botao">Marcar como resolvido</button>
+            <a th:href="@{/alertas}" class="botao-secundario">Cancelar</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>

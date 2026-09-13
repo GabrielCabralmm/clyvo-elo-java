@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Alertas abertos — CLYVO Elo</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<div class="container">
+    <h1>Alertas em aberto</h1>
+    <p class="subtitulo">Resolva cada alerta com uma nota de acompanhamento</p>
+
+    <div class="cartao" style="padding:0;">
+        <table>
+            <thead>
+            <tr><th>Pet</th><th>Origem</th><th>Prioridade</th><th>Descrição</th><th></th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="alerta : ${alertas}">
+                <td th:text="${alerta.pet.nome}"></td>
+                <td th:text="${alerta.origem}"></td>
+                <td>
+                    <span class="status-pill"
+                          th:classappend="${alerta.prioridade == 'ALTA'} ? 'status-alta' : (${alerta.prioridade == 'MEDIA'} ? 'status-media' : 'status-baixa')"
+                          th:text="${alerta.prioridade}"></span>
+                </td>
+                <td th:text="${alerta.descricao}"></td>
+                <td>
+                    <a th:href="@{/alertas/{id}/resolver(id=${alerta.id})}" class="botao-secundario" style="padding:5px 12px; font-size:12px;">Resolver</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="vazio" th:if="${#lists.isEmpty(alertas)}">Nenhum alerta em aberto no momento.</p>
+    </div>
+</div>
+</body>
+</html>
