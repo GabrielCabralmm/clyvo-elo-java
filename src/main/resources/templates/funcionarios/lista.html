@@ -1,39 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Equipe — CLYVO Elo</title>
-    <link rel="stylesheet" th:href="@{/css/estilo.css}">
-</head>
+<head th:replace="~{fragments/layout :: head('Equipe')}"></head>
 <body>
-<div th:replace="~{fragments/nav :: nav}"></div>
+<header th:replace="~{fragments/layout :: nav('equipe')}"></header>
+<main class="pagina">
+    <div class="cabecalho-pagina">
+        <div>
+            <h1>Equipe</h1>
+            <p class="subtitulo">Administradores e veterinários com acesso ao painel</p>
+        </div>
+        <a th:href="@{/funcionarios/novo}" class="botao">Novo funcionário</a>
+    </div>
 
-<div class="container">
-    <h1>Equipe da clínica</h1>
-    <p class="subtitulo">Doutores e administradores com acesso ao painel</p>
+    <div th:replace="~{fragments/layout :: mensagens}"></div>
 
-    <a th:href="@{/funcionarios/novo}" class="botao" style="margin-bottom:20px; display:inline-block;">+ Novo funcionário</a>
-
-    <div class="cartao" style="padding:0;">
+    <div class="cartao cartao-sem-espaco tabela-rolavel">
         <table>
             <thead>
-            <tr><th>Nome</th><th>Email</th><th>Perfil</th><th></th></tr>
+            <tr><th>Nome</th><th>Perfil</th><th>Na equipe desde</th><th></th></tr>
             </thead>
             <tbody>
-            <tr th:each="f : ${funcionarios}">
-                <td th:text="${f.nome}"></td>
-                <td th:text="${f.email}"></td>
-                <td><span class="badge" th:text="${f.perfil}"></span></td>
+            <tr th:each="funcionario : ${funcionarios}">
                 <td>
-                    <form th:action="@{/funcionarios/{id}/excluir(id=${f.id})}" method="post" style="display:inline;" onsubmit="return confirm('Excluir este funcionário?');">
-                        <button type="submit" class="botao-perigo">Excluir</button>
+                    <span class="texto-forte" th:text="${funcionario.nome}"></span>
+                    <div class="texto-secundario" th:text="${funcionario.email}"></div>
+                </td>
+                <td><span class="etiqueta" th:text="${funcionario.perfil.descricao}"></span></td>
+                <td th:text="${funcionario.dataCadastro != null} ? ${#temporals.format(funcionario.dataCadastro, 'dd/MM/yyyy')} : '—'"></td>
+                <td class="celula-acoes">
+                    <a th:href="@{/funcionarios/{id}/editar(id=${funcionario.id})}" class="botao-secundario botao-pequeno">Editar</a>
+                    <form th:if="${funcionario.id != usuarioLogado.id}" th:action="@{/funcionarios/{id}/excluir(id=${funcionario.id})}" method="post"
+                          th:attr="onsubmit=|return confirm('Remover ${funcionario.nome} da equipe?')|">
+                        <button type="submit" class="botao-perigo botao-pequeno">Excluir</button>
                     </form>
                 </td>
             </tr>
             </tbody>
         </table>
-        <p class="vazio" th:if="${#lists.isEmpty(funcionarios)}">Nenhum funcionário cadastrado.</p>
     </div>
-</div>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
 </body>
 </html>
