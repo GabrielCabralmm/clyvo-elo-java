@@ -1,24 +1,23 @@
 package com.clyvoelo.painel.controller;
 
-import com.clyvoelo.painel.repository.AlertaRepository;
-import com.clyvoelo.painel.repository.EventoClinicoRepository;
-import com.clyvoelo.painel.repository.PetRepository;
+import com.clyvoelo.painel.security.UsuarioAutenticado;
+import com.clyvoelo.painel.service.AreaTutorService;
+import com.clyvoelo.painel.service.DashboardService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class PainelController {
 
-    private final PetRepository petRepository;
-    private final EventoClinicoRepository eventoClinicoRepository;
-    private final AlertaRepository alertaRepository;
+    private final DashboardService dashboardService;
+    private final AreaTutorService areaTutorService;
 
-    public PainelController(PetRepository petRepository, EventoClinicoRepository eventoClinicoRepository, AlertaRepository alertaRepository) {
-        this.petRepository = petRepository;
-        this.eventoClinicoRepository = eventoClinicoRepository;
-        this.alertaRepository = alertaRepository;
+    public PainelController(DashboardService dashboardService, AreaTutorService areaTutorService) {
+        this.dashboardService = dashboardService;
+        this.areaTutorService = areaTutorService;
     }
 
     @GetMapping("/login")
@@ -27,13 +26,27 @@ public class PainelController {
     }
 
     @GetMapping("/")
-    public String dashboard(Model model, Authentication authentication) {
-        model.addAttribute("nomeUsuario", authentication.getName());
-        model.addAttribute("ehAdmin", authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN")));
-        model.addAttribute("ehDoutor", authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_DOUTOR")));
-        model.addAttribute("totalPets", petRepository.count());
-        model.addAttribute("eventosPendentes", eventoClinicoRepository.findByStatusOrderByDataEventoAsc("PENDENTE").size());
-        model.addAttribute("alertasAbertos", alertaRepository.findByStatusOrderByDataCriacaoAsc("ABERTO").size());
-        return "dashboard";
+    public String dashboard(@AuthenticationPrincipal UsuarioAutenticado usuario, Model model) {
+        return switch (usuario.getPerfil()) {
+            case ADMIN -> {
+                model.addAttribute("painel", dashboardService.montarDashboardAdmin());
+                yield "dashboard/admin";
+            }
+            case DOUTOR -> {
+                model.addAttribute("painel", dashboardService.montarDashboardVeterinario(usuario.getId()));
+                yield "dashboard/veterinario";
+            }
+            case TUTOR -> {
+                model.addAttribute("pets", areaTutorService.resumoDosPets(usuario.getId()));
+                yield "dashboard/tutor";
+            }
+        };
+    }
+
+    @RequestMapping("/acesso-negado")
+    public String acessoNegado(Model model) {
+        model.addAttribute("titulo", "Acesso não permitido");
+        model.addAttribute("mensagem", "Seu perfil não tem permissão para acessar esta área do painel.");
+        return "erro";
     }
 }
