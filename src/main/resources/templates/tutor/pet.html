@@ -17,6 +17,13 @@
 
     <div th:replace="~{fragments/layout :: mensagens}"></div>
 
+    <div class="espaco-acima">
+        <a class="botao"
+           th:href="@{/minha-area/pets/{id}/orientacao-ia(id=${pet.id})}">
+            Gerar orientação com IA (demo)
+        </a>
+    </div>
+
     <div class="grade-lateral">
         <section class="cartao">
             <div class="cartao-titulo"><h2>Agenda e orientações da clínica</h2></div>
