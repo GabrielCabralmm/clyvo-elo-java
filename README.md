@@ -174,8 +174,8 @@ A página **Ecossistema** (`/ecossistema`) mostra esta integração dentro do pr
 | **Advanced Business Development with .NET** | API REST em Clean Architecture (JWT, HATEOAS, Oracle e MongoDB) que atende o app do tutor; o painel consulta a saúde dela | [Repositório](https://github.com/GabrielCabralmm/ClyvoElo-dotnet) · [Swagger](https://clyvoelo-dotnet.onrender.com/swagger) |
 | **Mobile Application Development** | App do tutor, que consome a API .NET | [Repositório](https://github.com/GabrielCabralmm/clyvo-elo-mobile) |
 | **Mastering Relational and Non-Relational Database** | Modelagem no Oracle, com procedures, funções, triggers e pacotes; as mensagens de acompanhamento ficam no MongoDB. O painel usa o mesmo Oracle da FIAP | Scripts SQL entregues na disciplina |
-| **Disruptive Architectures: IoT, IoB & Generative IA** | Os sensores dos potes de água e ração geram os alertas de origem "Sensor IoT" acompanhados aqui | Alertas de origem Sensor IoT no painel |
-| **DevOps Tools & Cloud Computing** | Perfil `azure` com PostgreSQL, Dockerfile e esteiras de build e deploy em `.github/workflows` | `application-azure.properties`, `Dockerfile` |
+| **Disruptive Architectures: IoT, IoB & Generative IA** | Os sensores dos potes de água e ração geram os alertas de origem "Sensor IoT" acompanhados aqui. O painel também chama o serviço de IA em Python para gerar orientações ao tutor e analisar cenários de leitura | Alertas de origem Sensor IoT, `/ecossistema/ia` e "Gerar orientação com IA" na área do tutor |
+| **DevOps Tools & Cloud Computing** | Este painel publicado no Azure Web App com Azure Database for PostgreSQL, com Build (CI) e Release (CD) no Azure DevOps a cada push na `master` | [Repositório de DevOps](https://github.com/GabrielCabralmm/Clyvo-elo-DevOps) |
 | **Compliance, Quality Assurance & Tests** | Backlog e plano de testes no Azure Boards; os testes automatizados deste projeto cobrem as regras dos fluxos | `src/test` |
 
 ---
