@@ -105,18 +105,7 @@ Além dos cadastros (CRUD de pets, tutores e equipe), o painel tem quatro fluxos
 
 ## 5. Arquitetura e decisões técnicas
 
-```mermaid
-flowchart LR
-    U["Navegador<br/>(Admin, Veterinário, Tutor)"] -->|HTTP + sessão| SEC["Spring Security<br/>login, perfis, CSRF"]
-    SEC --> C["Controllers<br/>(Spring MVC)"]
-    C --> V["Views Thymeleaf<br/>layout com fragmentos"]
-    C --> S["Services<br/>regras de negócio"]
-    S --> M["Entidades JPA<br/>com regras do domínio"]
-    S --> R["Repositórios<br/>Spring Data JPA"]
-    R --> DB[("Oracle FIAP<br/>ou PostgreSQL no Azure")]
-    FW["Flyway<br/>V1 a V4"] --> DB
-    S -->|RestClient| API["API .NET<br/>/health/live"]
-```
+![Arquitetura do Painel da Clínica](docs/arquitetura.png)
 
 | Camada | Pacote | Responsabilidade |
 |---|---|---|
