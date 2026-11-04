@@ -9,7 +9,7 @@ João Victor Santana dos Santos - RM566063 - Turma 2TDSPX
 
 Link do GitHub: https://github.com/GabrielCabralmm/clyvo-elo-java
 Link da aplicação (Render): https://clyvo-elo-java.onrender.com
-Link do vídeo (YouTube): [a preencher]
+Link do vídeo (YouTube): https://youtu.be/fcVV3cduOfE
 
 Acessos de demonstração (senha clyvo123):
 Administrador: renata.souza@clyvovet.com

@@ -3,7 +3,7 @@
 Aplicação web em **Spring Boot** do **CLYVO Elo**, a solução do nosso grupo para o Challenge FIAP 2026 proposto pela **CLYVO VET**. Este repositório é a entrega final da disciplina de **Java Advanced (Sprint 4)**.
 
 - **Aplicação online:** https://clyvo-elo-java.onrender.com
-- **Vídeo de apresentação:** [a preencher]
+- **Vídeo de apresentação:** https://youtu.be/fcVV3cduOfE
 - **Repositório:** https://github.com/GabrielCabralmm/clyvo-elo-java
 
 ## Integrantes
